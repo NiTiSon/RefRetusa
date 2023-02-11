@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RefRetusa": {
+      "commandName": "Project",
+      "commandLineArgs": "-verbose:debug \"C:\\Users\\Nitka\\Desktop\\CustomBuild\\project.proj\""
+    }
+  }
+}
