@@ -1,12 +1,25 @@
 # RefRetusa
 
-# Embedded functions
-onTask (TASK)
+# Functions
+Every functions begins on the dollar sign ($)
+
+## Embedded functions
+
+### onTask (TASK)
 - condition
-- actions (list of stringlify actions)
+- actions
 ```yml
 $onTask(COMPILE):
   condition: $(configuration) == "Release"
+  actions:
+    - $nope()
+    - $nope()
+```
+
+### if (CONDITION)
+- actions
+```yml
+$if(true):
   actions:
     - $nope()
     - $nope()
