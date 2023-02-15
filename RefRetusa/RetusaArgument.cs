@@ -1,4 +1,5 @@
 ﻿using RefRetusa.Logging;
+using System;
 
 namespace RefRetusa;
 
@@ -24,4 +25,10 @@ public class RetusaArgument<T>
 
 		return false;
 	}
+
+	public override string ToString()
+		=> $"Argument<{typeof(T).Name}> = {Value}";
+
+	public static implicit operator T(RetusaArgument<T> argument)
+		=> argument.Value;
 }

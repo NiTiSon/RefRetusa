@@ -3,7 +3,7 @@
 public enum Verbose
 {
 	None = 0,
-	Error = 1,
+	Info = 1,
 	Warning = 2,
-	Info = 3,
+	Error = 3, 
 }

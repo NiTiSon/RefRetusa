@@ -2,7 +2,7 @@
   "profiles": {
     "RefRetusa": {
       "commandName": "Project",
-      "commandLineArgs": "-p:xy=12 --verbose:info \"C:\\Users\\Nitka\\Desktop\\CustomBuild\\workspace.imp\""
+      "commandLineArgs": "-p:xy=12 -v:0 \"C:\\Users\\Nitka\\Desktop\\CustomBuild\\workspace.imp\""
     }
   }
 }

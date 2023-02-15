@@ -1,4 +1,4 @@
-﻿using YamlDotNet.Core.Events;
+﻿using System;
 using YamlDotNet.RepresentationModel;
 
 namespace RefRetusa;
@@ -9,19 +9,10 @@ internal static class EntryPoint
 	{
 		RetusaArguments.Parse(args);
 
-		using Stream file = new FileStream(RetusaArguments.EntryFileOrDirectoryPath, FileMode.Open);
-		using TextReader tr = new StreamReader(file);
+		Console.WriteLine(RetusaArguments.Verbose);
 
-		YamlStream ystream = new();
-		ystream.Load(tr);
+		using RetusaInstance retusa = new();
 
-		YamlMappingNode mapping =
-				(YamlMappingNode)ystream.Documents[0].RootNode;
-
-		foreach (KeyValuePair<YamlNode, YamlNode> entry in mapping.Children)
-		{
-			Console.WriteLine(((YamlScalarNode)entry.Key).Value);
-		}
-
+		retusa.Analys(RetusaArguments.EntryFileOrDirectoryPath);
 	}
 }

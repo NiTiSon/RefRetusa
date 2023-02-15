@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RefRetusa.Structs.Collections;
 

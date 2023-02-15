@@ -3,17 +3,15 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net7.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<ApplicationIcon>Resources/icon.ico</ApplicationIcon>
 		<Nullable>enable</Nullable>
+		<PublishReadyToRun>true</PublishReadyToRun>
+		<PublishSingleFile>true</PublishSingleFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="YamlDotNet" Version="13.0.0" />
 		<PackageReference Include="NiTiS.Core" Version="3.2.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
 	</ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using RefRetusa.Logging;
 using RefRetusa.Structs.Collections;
+using System;
 using System.Diagnostics;
 
 namespace RefRetusa;
