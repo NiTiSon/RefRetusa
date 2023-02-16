@@ -28,16 +28,16 @@ public static class RetusaArguments
 					-v:{VALUE} | --verbose:{VALUE}
 					Controls the amount of information output during a build
 					VALUE:
-						NONE - display only help menu 
-						ERROR - display only errors (default)
+						DEBUG - display developer-related info, absolutly all messages
+						INFO - minor information
 						WARN - display errors and warnings
-						INFO - display everything
+						ERROR - display only errors (default)
 
 					-p:{NAME}[={VALUE}]
 					Set value to environment variable
 					NAME: any string (without whitespaces)
 					VALUE: any string (without whitespaces)
-				""", Logging.Verbose.None);
+				""", Logging.Verbose.UserRelated);
 			Environment.Exit(0);
 			return true;
 		}
@@ -104,10 +104,10 @@ public static class RetusaArguments
 		{
 			switch (text.ToLower())
 			{
-				case "none":
-				case "n":
+				case "debug":
+				case "d":
 				case "0":
-					return Logging.Verbose.None;
+					return Logging.Verbose.Debug;
 				case "error":
 				case "e":
 				case "1":

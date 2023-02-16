@@ -31,7 +31,7 @@ public class RetusaInstance : IDisposable
 		using Stream fileStream = file.OpenRead();
 		using TextReader fileReader = new StreamReader(fileStream);
 
-		Logger.None($"RefRetusa:Analys {pathToFile}");
+		Logger.Debug($"RefRetusa:Analys {pathToFile}");
 
 		YamlStream ystream = new();
 		ystream.Load(fileReader);
@@ -47,6 +47,6 @@ public class RetusaInstance : IDisposable
 
 	public void Dispose()
 	{
-		Logger.None($"Retusa [{Convert.ToString(HashCode, 16).PadLeft(4, '0')}] disposed");
+		Logger.Debug($"Retusa [{Convert.ToString(HashCode, 16).PadLeft(4, '0')}] disposed");
 	}
 }

@@ -9,8 +9,8 @@ public static class Logger
 {
 	private static object sync = new();
 	private static ConsoleColor defaultColour = Console.ForegroundColor;
-	public static void None(string message)
-		=> Log(message, Verbose.None);
+	public static void Debug(string message)
+		=> Log(message, Verbose.Debug);
 	public static void Warn(string message)
 		=> Log(message, Verbose.Warning);
 	public static void Error(string message)
@@ -28,7 +28,7 @@ public static class Logger
 			{
 				Verbose.Error => ConsoleColor.Red,
 				Verbose.Warning => ConsoleColor.Yellow,
-				Verbose.None => ConsoleColor.DarkGray,
+				Verbose.Debug => ConsoleColor.DarkGray,
 				_ => defaultColour,
 			};
 			Console.WriteLine(message);

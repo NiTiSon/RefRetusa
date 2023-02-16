@@ -1,9 +1,10 @@
 ﻿namespace RefRetusa.Logging;
 
-public enum Verbose
+public enum Verbose : byte
 {
-	None = 0,
+	Debug = 0,
 	Info = 1,
 	Warning = 2,
-	Error = 3, 
+	Error = 3,
+	UserRelated = 4,
 }
