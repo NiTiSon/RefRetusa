@@ -19,7 +19,8 @@ public static class RetusaArguments
 		{
 			Logger.Log(
 				$$"""
-				RefRetusa {{Meta.Version}}
+				RefRetusa {{Meta.Version}}, Build utility by NiTiSon aka NickName73
+				License: GPL-3.0 license (https://raw.githubusercontent.com/NiTiSon/RefRetusa/latest/LICENSE.txt)
 				Usage:
 					RefRetusa{{Meta.ExecutionExtension}} [--help|arguments...] {project file|project directory}
 

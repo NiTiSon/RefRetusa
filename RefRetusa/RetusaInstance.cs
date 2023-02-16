@@ -8,34 +8,45 @@ namespace RefRetusa;
 
 public class RetusaInstance : IDisposable
 {
-	private ushort hashCode;
+	public readonly ushort HashCode;
+	public Stack<FileInfo> Files { get; protected set; }
+	public FileInfo CurrentFile { get; protected set; }
+	public DirectoryInfo CurrentDirectory { get; protected set; }
 	public RetusaInstance()
 	{
-		hashCode = (ushort)new Random().Next(0x0000, 0xFFFF);
+		HashCode = (ushort)new Random().Next(0x0000, 0xFFFF);
+		Files = new(16);
 	}
 
 	public void Analys(string pathToFile)
 	{
-		if (!File.Exists(pathToFile))
+		FileInfo file = new(pathToFile);
+
+		if (!file.Exists)
 			Logger.Exception(new FileNotFoundException("Project file not found", pathToFile));
 
-		using Stream file = new FileStream(RetusaArguments.EntryFileOrDirectoryPath, FileMode.Open);
-		using TextReader tr = new StreamReader(file);
+		Files.Push(file);
+		CurrentFile = file;
+
+		using Stream fileStream = file.OpenRead();
+		using TextReader fileReader = new StreamReader(fileStream);
+
+		Logger.None($"RefRetusa:Analys {pathToFile}");
 
 		YamlStream ystream = new();
-		ystream.Load(tr);
+		ystream.Load(fileReader);
 
 		YamlMappingNode mapping =
 				(YamlMappingNode)ystream.Documents[0].RootNode;
 
 		foreach (KeyValuePair<YamlNode, YamlNode> entry in mapping.Children)
 		{
-			Console.WriteLine(((YamlScalarNode)entry.Key).Value);
+			Console.WriteLine(((YamlScalarNode)entry.Key).Value + ": " + ((YamlScalarNode)entry.Value).Value);
 		}
 	}
 
 	public void Dispose()
 	{
-		Logger.None($"Retusa [{Convert.ToString(hashCode, 16).PadLeft(4, '0')}] disposed");
+		Logger.None($"Retusa [{Convert.ToString(HashCode, 16).PadLeft(4, '0')}] disposed");
 	}
 }

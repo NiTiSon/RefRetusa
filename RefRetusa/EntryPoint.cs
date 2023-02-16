@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RefRetusa.Logging;
+using System;
 using YamlDotNet.RepresentationModel;
 
 namespace RefRetusa;
@@ -7,12 +8,24 @@ internal static class EntryPoint
 {
 	public static void Main(string[] args)
 	{
-		RetusaArguments.Parse(args);
+		try
+		{
+			RetusaArguments.Parse(args);
 
-		Console.WriteLine(RetusaArguments.Verbose);
+			Console.WriteLine(RetusaArguments.Verbose);
 
-		using RetusaInstance retusa = new();
+			using RetusaInstance retusa = new();
 
-		retusa.Analys(RetusaArguments.EntryFileOrDirectoryPath);
+			retusa.Analys(RetusaArguments.EntryFileOrDirectoryPath);
+
+		}
+		catch (Exception exception)
+		{
+			Logger.Exception(exception);
+		}
+		finally
+		{
+
+		}
 	}
 }
