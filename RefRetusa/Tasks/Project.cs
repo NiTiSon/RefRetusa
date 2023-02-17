@@ -4,7 +4,7 @@ namespace RefRetusa.Tasks;
 
 public class Project : TaskUnit
 {
-	public Project(RetusaInstance runner) : base(runner)
+	public Project(RetusaInstance runner, Location location) : base(runner, location)
 	{
 	}
 

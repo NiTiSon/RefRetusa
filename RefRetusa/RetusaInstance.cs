@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using YamlDotNet.Core.Tokens;
 using YamlDotNet.RepresentationModel;
 
 namespace RefRetusa;
@@ -42,7 +43,17 @@ public class RetusaInstance : IDisposable
 
 		foreach (KeyValuePair<YamlNode, YamlNode> entry in mapping.Children)
 		{
-			Console.WriteLine(((YamlScalarNode)entry.Key).Value + ": " + ((YamlScalarNode)entry.Value).Value);
+			string? key = ((YamlScalarNode)entry.Key).Value;
+			string? value = (entry.Value as YamlScalarNode)?.Value;
+
+			if (key?.StartsWith('$') ?? false)
+			{
+				AnalysFunction(key.Substring(1));
+			}
+		}
+
+		static void AnalysFunction(string funcName)
+		{
 		}
 	}
 
