@@ -1,5 +1,15 @@
-﻿namespace RefRetusa.Tasks;
+﻿using RefRetusa.Logging;
 
-public class Project
+namespace RefRetusa.Tasks;
+
+public class Project : TaskUnit
 {
+	public Project(RetusaInstance runner) : base(runner)
+	{
+	}
+
+	public override void RunTask(TaskType type)
+	{
+
+	}
 }

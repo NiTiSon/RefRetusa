@@ -8,13 +8,14 @@ namespace RefRetusa;
 
 public class RetusaInstance : IDisposable
 {
+	private static Random rand = new();
 	public readonly ushort HashCode;
 	public Stack<FileInfo> Files { get; protected set; }
 	public FileInfo CurrentFile { get; protected set; }
 	public DirectoryInfo CurrentDirectory { get; protected set; }
 	public RetusaInstance()
 	{
-		HashCode = (ushort)new Random().Next(0x0000, 0xFFFF);
+		HashCode = (ushort)rand.Next(0x0000, 0xFFFF);
 		Files = new(16);
 	}
 
@@ -23,7 +24,7 @@ public class RetusaInstance : IDisposable
 		FileInfo file = new(pathToFile);
 
 		if (!file.Exists)
-			Logger.Exception(new FileNotFoundException("Project file not found", pathToFile));
+			Logger.Exception(new FileNotFoundException("Project file not found", file.FullName));
 
 		Files.Push(file);
 		CurrentFile = file;
