@@ -13,6 +13,7 @@
 	<ItemGroup>
 		<PackageReference Include="YamlDotNet" Version="13.0.0" />
 		<PackageReference Include="NiTiS.Core" Version="3.2.1" />
+		<PackageReference Include="NiTiS.Collections" Version="2.1.0" />
 	</ItemGroup>
 
 </Project>

@@ -23,9 +23,6 @@ internal static class EntryPoint
 		{
 			Logger.Exception(exception);
 		}
-		finally
-		{
-
-		}
+		finally { }
 	}
 }
