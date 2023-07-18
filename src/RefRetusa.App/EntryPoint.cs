@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using RefRetusa.NiteCode;
 using YamlDotNet.Serialization;
 
@@ -29,6 +30,7 @@ Version: {typeof(EntryPoint).Assembly.GetName().Version?.ToString(3) ?? "unknown
 		}
 
 		int argsLeft = args.Length;
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		int argIndex() => args.Length - argsLeft;
 		foreach (string cmdName in engine.CommandNames)
 		{
