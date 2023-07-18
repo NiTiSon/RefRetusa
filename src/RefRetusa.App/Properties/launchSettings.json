@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RefRetusa.App": {
+      "commandName": "Project",
+      "commandLineArgs": "nitecode-version"
+    }
+  }
+}
