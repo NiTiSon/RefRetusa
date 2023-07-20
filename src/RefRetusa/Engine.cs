@@ -4,7 +4,6 @@ namespace RefRetusa;
 
 public sealed class Engine
 {
-	private readonly Dictionary<string, Command> commands;
 	private readonly SmartDictonary<string, Extension> extensions;
 	private readonly SmartDictonary<string, Language> languages;
 	private readonly Dictionary<string, string> options;
@@ -12,14 +11,8 @@ public sealed class Engine
 	private readonly object? projectTemplates;
 	private bool initialized;
 
-	public IEnumerable<Command> Commands
-		=> commands.Values;
-	public IEnumerable<string> CommandNames
-		=> commands.Keys;
-
 	public Engine()
 	{
-		commands = new();
 		languages = new(Language.KeyGet);
 		extensions = new(Extension.KeyGet);
 		options = new(32);
@@ -54,36 +47,6 @@ public sealed class Engine
 		lock (languages)
 		{
 			languages.Add(lang);
-		}
-	}
-
-	public void AddCommand(string commandName, Command command)
-	{
-		lock (commands)
-		{
-			if (commands.TryGetValue(commandName, out Command? linkedCommand))
-			{
-				Console.WriteLine($"RegistryError: Command alias {commandName} already link to {linkedCommand}");
-			}
-			else
-			{
-				commands.Add(commandName, command);
-			}
-		}
-	}
-
-	public Command? GetCommand(string commandName)
-	{
-		lock (commands)
-		{
-			if (commands.TryGetValue(commandName, out Command? cmd))
-			{
-				return cmd;
-			}
-			else
-			{
-				return null;
-			}
 		}
 	}
 }
