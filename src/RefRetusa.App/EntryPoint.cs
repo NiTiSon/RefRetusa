@@ -1,4 +1,5 @@
 ﻿using System;
+using RefRetusa.IO;
 using RefRetusa.NiteCode;
 using YamlDotNet.Serialization;
 
@@ -16,13 +17,14 @@ public static class EntryPoint
 		engine.Initialize();
 
 
-		if (args.Length == 0)
+		if (args.Length is 0)
 		{
 			Console.WriteLine($"""
 &Retusa aka RefRetusa - a program to compile, create, clean your projects
 Version: {typeof(EntryPoint).Assembly.GetName().Version?.ToString(3) ?? "unknown"}
 """);
 		}
+
 
 		
 		//	commands:

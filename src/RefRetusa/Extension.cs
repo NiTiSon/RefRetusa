@@ -13,6 +13,5 @@ public class Extension : IDisposable
 
 	public virtual void Initialize(Engine engine) { }
 	public virtual void Dispose() { }
-
 	internal static string KeyGet(Extension ext) => ext.Id;
 }
