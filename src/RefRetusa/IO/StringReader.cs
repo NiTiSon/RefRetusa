@@ -5,10 +5,10 @@ namespace RefRetusa.IO;
 public class StringReader : ReadStream<char>, Seekable
 {
 	private readonly string content;
-	private int index;
+	private int position;
 
 	public int Length => content.Length;
-	public int Position => index;
+	public int Position => position;
 
 	public StringReader(string content)
 	{
@@ -18,19 +18,19 @@ public class StringReader : ReadStream<char>, Seekable
 	public char Peek()
 	{
 		ThrowIfOutOfBounds();
-		return this.content[index];
+		return content[position];
 	}
 
 	public char Read()
 	{
 		ThrowIfOutOfBounds();
-		return this.content[index++];
+		return content[position++];
 	}
 
 	[StackTraceHidden]
 	private void ThrowIfOutOfBounds()
 	{
-		if (index < 0 || index >= this.content.Length)
+		if (position < 0 || position >= content.Length)
 			throw new IndexOutOfRangeException();
 	}
 
@@ -39,13 +39,13 @@ public class StringReader : ReadStream<char>, Seekable
 		switch (origin)
 		{
 			case SeekOrigin.Begin:
-				index = (int)offset;
+				position = (int)offset;
 				break;
 			case SeekOrigin.Current:
-				index += (int)offset;
+				position += (int)offset;
 				break;
 			case SeekOrigin.End:
-				index = Length - (int)offset - 1; // length more then final index by one
+				position = Length - (int)offset - 1; // length more then final index by one
 				break;
 		}
 		ThrowIfOutOfBounds();
