@@ -2,7 +2,7 @@
   "profiles": {
     "RefRetusa.App": {
       "commandName": "Project",
-      "commandLineArgs": "extension --recursive"
+      "commandLineArgs": "extensions list"
     }
   }
 }
