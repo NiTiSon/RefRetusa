@@ -1,18 +1,43 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using RefRetusa.Commands;
-using RefRetusa.IO;
-using RefRetusa.NiteCode;
-using YamlDotNet.Serialization;
+using System.IO;
+using YamlDotNet.RepresentationModel;
+using SystemStringReader = System.IO.StringReader;
 
 namespace RefRetusa;
 
 public static class EntryPoint
 {
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	private static void Main(string[] args)
 	{
+		Engine engine = new();
+		try
+		{
+			string optionsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".refretusa.yml");
+
+			string options;
+			if (!File.Exists(optionsFilePath))
+			{
+				options = string.Empty;
+				File.Create(optionsFilePath).Close();
+			}
+			else
+			{
+				options = File.ReadAllText(optionsFilePath);
+			}
+
+			SystemStringReader sr = new(options);
+
+			YamlStream ys = new();
+			ys.Load(sr);
+
+			YamlDocument settings = ys.Documents[0];
+		}
+		catch (ArgumentOutOfRangeException)
+		{
+			logger.Log("Mda");
+			Environment.Exit(-1);
+		}
+
 		if (args.Length is 0)
 		{
 			Console.WriteLine($"""
