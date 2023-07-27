@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using Serilog;
+using Serilog.Core;
 using YamlDotNet.RepresentationModel;
 using SystemStringReader = System.IO.StringReader;
 
@@ -9,7 +12,12 @@ public static class EntryPoint
 {
 	private static void Main(string[] args)
 	{
+		Log.Logger = new LoggerConfiguration()
+			.WriteTo.Console()
+			.CreateLogger();
+		
 		Engine engine = new();
+
 		try
 		{
 			string optionsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".refretusa.yml");
@@ -19,6 +27,7 @@ public static class EntryPoint
 			{
 				options = string.Empty;
 				File.Create(optionsFilePath).Close();
+				File.SetAttributes(optionsFilePath, File.GetAttributes(optionsFilePath) | FileAttributes.Hidden); // Cleaner user directory
 			}
 			else
 			{
@@ -31,11 +40,19 @@ public static class EntryPoint
 			ys.Load(sr);
 
 			YamlDocument settings = ys.Documents[0];
+			YamlMappingNode? node = settings.RootNode as YamlMappingNode;
+
+			foreach (KeyValuePair<YamlNode, YamlNode> nodes in node.Children)
+			{
+			}
 		}
-		catch (ArgumentOutOfRangeException)
+		catch (ArgumentOutOfRangeException) // Ignore cause of empty options file
 		{
-			logger.Log("Mda");
-			Environment.Exit(-1);
+			engine.SetDefaultOptions();
+		}
+		catch (Exception ex)
+		{
+			Log.Error("Error \"{0}\" handled during options file reading/initializing: {1}", ex.GetType(), ex.Message);
 		}
 
 		if (args.Length is 0)
