@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "RefRetusa.App": {
-      "commandName": "Project",
-      "commandLineArgs": "extensions list"
-    }
-  }
-}
