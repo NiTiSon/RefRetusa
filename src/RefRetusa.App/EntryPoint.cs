@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using Serilog;
-using Serilog.Core;
-using YamlDotNet.RepresentationModel;
-using SystemStringReader = System.IO.StringReader;
+using System.Linq;
+using GlobExpressions;
 
 namespace RefRetusa;
 
@@ -12,67 +9,66 @@ public static class EntryPoint
 {
 	private static void Main(string[] args)
 	{
-		Log.Logger = new LoggerConfiguration()
-			.WriteTo.Console()
-			.CreateLogger();
-		
 		Engine engine = new();
 
-		try
+		if (args.Length == 0) // Show help message
 		{
-			string optionsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".refretusa.yml");
+			engine.Execute("help()");
+		}
+		else if (args.Length == 1) // auto-find file .ret or .retproj and launch arg[0] expression
+		{
+			string retFiles = args[0];
 
-			string options;
-			if (!File.Exists(optionsFilePath))
+			string[] files;
+			if (File.Exists(retFiles))
 			{
-				options = string.Empty;
-				File.Create(optionsFilePath).Close();
-				File.SetAttributes(optionsFilePath, File.GetAttributes(optionsFilePath) | FileAttributes.Hidden); // Cleaner user directory
+				files = new string[] { retFiles };
 			}
 			else
 			{
-				options = File.ReadAllText(optionsFilePath);
+				if (OperatingSystem.IsWindows() && Path.IsPathRooted(retFiles))
+				{
+					string root = Path.GetPathRoot(retFiles)!.Replace('\\', '/');
+					string rootlesPath = retFiles[root.Length..^0];
+
+					files = Glob.Files(new DirectoryInfo(root), rootlesPath).Select(f => f.FullName).ToArray();
+				}
+				else
+				{
+					files = Glob.Files(Environment.CurrentDirectory, retFiles).ToArray();
+				}
 			}
 
-			SystemStringReader sr = new(options);
-
-			YamlStream ys = new();
-			ys.Load(sr);
-
-			YamlDocument settings = ys.Documents[0];
-			YamlMappingNode? node = settings.RootNode as YamlMappingNode;
-
-			foreach (KeyValuePair<YamlNode, YamlNode> nodes in node.Children)
+			
+			if (files.Length == 0)
 			{
+				Console.WriteLine("File not found!");
+			}
+			else if (files.Length == 1)
+			{
+				// Analys file and execute it
+			}
+			else
+			{
+				Console.WriteLine("Found more that 1 &Retusa file:");
+				int i = 0; const int DisplayLimit = 8;
+				foreach (string file in files)
+				{
+					if (i++ >= DisplayLimit)
+					{
+						Console.WriteLine("\t...");
+						break;
+					}
+
+					Console.Write('\t');
+					Console.WriteLine(file);
+				}
+				return;
 			}
 		}
-		catch (ArgumentOutOfRangeException) // Ignore cause of empty options file
+		else if (args.Length > 2) // execute 
 		{
-			engine.SetDefaultOptions();
-		}
-		catch (Exception ex)
-		{
-			Log.Error("Error \"{0}\" handled during options file reading/initializing: {1}", ex.GetType(), ex.Message);
-		}
 
-		if (args.Length is 0)
-		{
-			Console.WriteLine($"""
-&Retusa aka RefRetusa - a program to compile, create, clean your projects
-Version: {typeof(EntryPoint).Assembly.GetName().Version?.ToString(3) ?? "unknown"}
-""");
 		}
-		
-		//	commands:
-		//	ext | extension
-		//		list (show all extensions applied to &Retusa Engine)
-		//		deactivate (deactivate extension by name or id)
-		//		activate (activate extension by name or id)
-		//
-		//	build
-		//		-o | --out {string} (sets output directory)
-		//
-		//	config
-		//		[options] (sets specific value to specific option)
 	}
 }

@@ -2,14 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<NoWarn>IDE1006</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="NiTiS.Collections" Version="2.2.0" />
-		<PackageReference Include="Serilog" Version="3.0.1" />
+	  <Folder Include="RetusaLang\Analysis\Syntax\" />
+	  <Folder Include="RetusaLang\Runtime\" />
 	</ItemGroup>
 
 </Project>

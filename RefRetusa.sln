@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RefRetusa", "src\RefRetusa\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RefRetusa.NiteCode", "ext\RefRetusa.NiteCode\RefRetusa.NiteCode.csproj", "{6B5DF806-1D72-4F86-A00E-4B956F76C1CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefRetusa.App", "src\RefRetusa.App\RefRetusa.App.csproj", "{BC642AE2-4E5E-4AAE-9173-E3B119AB32AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RefRetusa.App", "src\RefRetusa.App\RefRetusa.App.csproj", "{BC642AE2-4E5E-4AAE-9173-E3B119AB32AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
